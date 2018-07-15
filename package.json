@@ -1,0 +1,24 @@
+{
+  "name": "project-arena",
+  "version": "1.0.0",
+  "description": "A turn-based PVP game where you control a team of heroes",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/caillef/project-arena.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/caillef/project-arena/issues"
+  },
+  "homepage": "https://github.com/caillef/project-arena#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "socket.io": "^2.1.1"
+  }
+}
