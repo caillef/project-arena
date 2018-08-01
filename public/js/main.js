@@ -82,12 +82,69 @@ function create() {
 
 function update() {
     if (game.input.activePointer.isDown) {
-        console.log("plop")
+        if (this.selectedCell !== undefined) {
+            drawMovementPath(this)
+        }
     }
 }
 
+function drawMovementPath(self) {
+    const queue = []
+    const visited = []
+    const dir = [{
+        x: 1,
+        y: 0
+    }, {
+        x: 0,
+        y: 1
+    }, {
+        x: -1,
+        y: 0
+    }, {
+        x: 0,
+        y: -1
+    }]
+    let current = {
+        x: self.player.pos.x,
+        y: self.player.pos.y
+    };
+    let end = self.selectedCell.pos;
+    while (current.x !== end.x && current.y != end.y) {
+        if (visited.find(p => p.x === current.x && p.y === current.y) === undefined) {
+            dir.forEach(d => {
+                queue.push({
+                    x: current.x + d.x,
+                    y: current.y + d.y,
+                    prev: {
+                        x: current.x,
+                        y: current.y,
+                        prev: current.prev ? JSON.parse(JSON.stringify(current.prev)) : undefined
+                    }
+                })
+            })
+            visited.push(current) 
+        }
+        current = queue.shift();
+    }
+    const path = []
+    while (current !== undefined) {
+        path.push({
+            x: current.x,
+            y: current.y
+        })
+        current = current.prev;
+    }
+    console.log(self.player.pos)
+    console.log(path.reverse())
+    console.log(end)
+}
+
 function initializePlayer(self) {
-    const pos = {x: 5, y:5, z:0}
+    const pos = {
+        x: 5,
+        y: 5,
+        z: 0
+    }
     const isopos = convert3dToIsometric(pos)
     self.player = {
         pos,
